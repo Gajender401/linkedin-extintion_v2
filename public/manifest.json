@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "LinkedIn Username Extractor",
+    "version": "1.0.0",
+    "description": "Extract and display LinkedIn username",
+    "action": {
+      "default_popup": "index.html"
+    },
+    "background": {
+      "service_worker": "service_worker.js",
+      "type": "module"
+    },
+    "permissions": ["activeTab","scripting","storage"],
+    "icons": {
+      "16": "vite.svg"
+    },
+    "host_permissions": [
+      "http://*/*",
+      "https://*/*"
+    ]
+  }
+  
