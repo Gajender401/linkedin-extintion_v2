@@ -13,7 +13,8 @@
   "permissions": [
     "activeTab",
     "scripting",
-    "storage"
+    "storage",
+    "cookies"
   ],
   "icons": {
     "16": "vite.svg"
@@ -24,11 +25,11 @@
   ],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://web-page-navy.vercel.app/*"],
       "js": ["contentScript.js"]
     }
   ],
   "externally_connectable": {
-    "matches": ["https://web-page-navy.vercel.app"]
+    "matches": ["*://web-page-navy.vercel.app/*"]
   }
 }

@@ -4,6 +4,7 @@ import './App.css';
 
 const Popup = () => {
   const [userName, setUserName] = useState('');
+  const [access, setAccess] = useState('jbjh')
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -87,12 +88,29 @@ const Popup = () => {
     messageBox.dispatchEvent(inputEvent);
   }
 
+  function getCookies() {
+    
+    /*@ts-ignore */
+    chrome.cookies.get({ url: 'https://bot.kaliper.in/', name: 'access' }, function (cookie) {
+      console.log('cookies', cookie);
+      setAccess(cookie.value)
+    })
+
+
+  }
+
   return (
     <div className='card'>
       <h1>LinkedIn Extension</h1>
       <h2>User: {userName}</h2>
       <button onClick={handleClickMessageButton}>Click Message Button</button>
       <button onClick={() => setMessage()}>Set message</button>
+
+      <button onClick={() => getCookies()} >
+        getCoocies
+      </button>
+
+      <p>{access}</p>
 
     </div>
   );
