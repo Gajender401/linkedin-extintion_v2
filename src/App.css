@@ -1,18 +1,24 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
 .card {
-  padding: 2em;
+  padding: 1em;
 }
 
 h1{
-  font-size: medium;
+  font-size: small;
 }
 
 .read-the-docs {
   color: #888;
+}
+
+.jest {
+  background-color: aliceblue;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
 }
