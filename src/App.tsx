@@ -71,15 +71,15 @@ const Popup = () => {
       method: 'get',
       maxBodyLength: Infinity,
       url: 'https://bot.kaliper.in/api/api/templates/',
-      headers: { 
+      headers: {
         'Authorization': `Bearer ${tokken}`
       }
     };
-    
+
     axios.request(config)
-    .then((response:any) => {
-      setTemplate(response.data)
-    })
+      .then((response: any) => {
+        setTemplate(response.data)
+      })
   }
 
 
@@ -110,13 +110,13 @@ const Popup = () => {
 
     const userName = userNameElement.innerText.trim();
 
-      var words = userName.split(" ");
-      words.pop();
-      var modifiedString = words.join(" ");
-      const messageButton = document.querySelector(`button[aria-label="Message ${modifiedString}"]`);
-      if (messageButton) {
-        (messageButton as HTMLButtonElement).click();
-      }
+    var words = userName.split(" ");
+    words.pop();
+    var modifiedString = words.join(" ");
+    const messageButton = document.querySelector(`button[aria-label="Message ${modifiedString}"]`);
+    if (messageButton) {
+      (messageButton as HTMLButtonElement).click();
+    }
 
   };
 
@@ -137,20 +137,43 @@ const Popup = () => {
 
     if (messageBox instanceof HTMLElement) {
       messageBox.setAttribute('data-artdeco-is-focused', 'true');
-      messageBox.focus(); 
+      messageBox.focus();
       var pTag = document.querySelector('.msg-form__contenteditable p');
 
-      // Check if the <p> tag exists
       if (pTag) {
-          // Add "Hello, World!" to the <p> tag
-          pTag.textContent = 'Hello, World!';
+        pTag.textContent = 'Hello, World!';
       } else {
-          console.error('The <p> tag was not found.');
+        console.error('The <p> tag was not found.');
       }
     }
+
+    // Remove msg-form__placeholder from the div
+    const placeholderDiv = document.querySelector('.msg-form__placeholder');
+
+    if (placeholderDiv instanceof HTMLElement) {
+      placeholderDiv.classList.remove('msg-form__placeholder');
+    } else {
+      console.error('The .msg-form__placeholder div was not found.');
+    }
+
+    // Enable the send button
+    const sendButton = document.querySelector('.msg-form__send-button');
+
+    if (sendButton instanceof HTMLElement) {
+      sendButton.removeAttribute('disabled');
+    } else {
+      console.error('The .msg-form__send-button button was not found.');
+    }
+
+    // Add msg-form__msg-content-container--is-active to the text editor div
+    const textEditorDiv = document.querySelector('.msg-form__message-texteditor');
+
+    if (textEditorDiv instanceof HTMLElement) {
+      textEditorDiv.classList.add('msg-form__msg-content-container--is-active');
+    } else {
+      console.error('The .msg-form__message-texteditor div was not found.');
+    }
   }
-
-
 
   async function sendTemplate() {
     let data = JSON.stringify({
@@ -159,23 +182,23 @@ const Popup = () => {
       "recipient_name": userName,
       "template_name": tempName
     });
-    
+
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://bot.kaliper.in/api/kaliper-linked-lists/',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'Authorization': `Bearer ${access}`, 
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access}`,
         'Cookie': 'sonu_session=osi35ll46ie4ow2jtttewanamin8s5k6'
       },
-      data : data
+      data: data
     };
-    
+
     axios.request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
   }
 
 
@@ -184,7 +207,7 @@ const Popup = () => {
       <h1>LinkedIn Extension</h1>
       <h2>User: {userName}</h2>
       <button onClick={handleClickMessageButton}>Click Message Button</button>
-      <button style={{marginTop:'10px'}} onClick={() => handleClickMessageButton2()}>Set message</button>
+      <button style={{ marginTop: '10px' }} onClick={() => handleClickMessageButton2()}>Set message</button>
       <p>{user}</p>
 
       <div className='jest' >
@@ -192,10 +215,10 @@ const Popup = () => {
           <p key={temp.id} >{temp.content}</p>
         )}
       </div>
-      <input type="text" placeholder='message' value={messages} onChange={(e)=>setMessages(e.target.value)} />
-      <input type="text" placeholder='template name' value={tempName} onChange={(e)=>setTempName(e.target.value)} />
+      <input type="text" placeholder='message' value={messages} onChange={(e) => setMessages(e.target.value)} />
+      <input type="text" placeholder='template name' value={tempName} onChange={(e) => setTempName(e.target.value)} />
 
-      <button onClick={()=>sendTemplate()} >
+      <button onClick={() => sendTemplate()} >
         Submit
       </button>
 
