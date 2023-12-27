@@ -138,12 +138,12 @@ const Popup = () => {
     if (messageBox instanceof HTMLElement) {
       messageBox.setAttribute('data-artdeco-is-focused', 'true');
       messageBox.focus();
-      var pTag = document.querySelector('.msg-form__contenteditable p');
+      var pTag = document.querySelector('.msg-form__contenteditable p') as HTMLElement;
 
       if (pTag) {
-        pTag.textContent = 'Hello, World!';
-      } else {
-        console.error('The <p> tag was not found.');
+        pTag.innerText = 'Hey wassup';
+        const event = new Event('input', { bubbles: true });
+        pTag.dispatchEvent(event);
       }
     }
 
@@ -215,12 +215,14 @@ const Popup = () => {
           <p key={temp.id} >{temp.content}</p>
         )}
       </div>
-      <input type="text" placeholder='message' value={messages} onChange={(e) => setMessages(e.target.value)} />
-      <input type="text" placeholder='template name' value={tempName} onChange={(e) => setTempName(e.target.value)} />
+      <form >
+        <input type="text" placeholder='message' value={messages} onChange={(e) => setMessages(e.target.value)} />
+        <input type="text" placeholder='template name' value={tempName} onChange={(e) => setTempName(e.target.value)} />
 
-      <button onClick={() => sendTemplate()} >
-        Submit
-      </button>
+        <button onClick={() => sendTemplate()} >
+          Submit
+        </button>
+      </form>
 
     </div>
   );

@@ -22,3 +22,10 @@ h1{
   padding: 10px;
   font-size: 14px;
 }
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
