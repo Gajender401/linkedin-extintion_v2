@@ -1,7 +1,7 @@
 import { FaPlus } from "react-icons/fa6";
 const Main = () => {
     return (
-        <div className="h-full w-full flex items-center justify-center" >
+        <div className="h-full p-5 w-full flex items-center justify-center" >
             <div className="flex items-center justify-center flex-col gap-2" >
 
             <h2 className='text-black text-center text-lg' >

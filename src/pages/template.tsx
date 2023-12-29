@@ -23,7 +23,6 @@ import { FaPlus } from 'react-icons/fa6';
 import { cn } from '../@/lib/utils';
 import axios from 'axios';
 import { useUserAuth } from '../context/context';
-import { useNavigate } from 'react-router-dom';
 
 
 const FormSchema = z.object({
@@ -39,8 +38,6 @@ const FormSchema = z.object({
 const Template = () => {
     const {access} = useUserAuth()
     
-  const navigate = useNavigate();
-
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -78,13 +75,13 @@ const Template = () => {
         
             axios.request(config)
               .then((response) => {
-                navigate('#templates')
+                window.location.href = `#templates`
                 console.log(JSON.stringify(response.data));
               })
     }
 
     return (
-        <main className=' w-full' >
+        <main className=' p-5 w-full' >
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
@@ -180,7 +177,7 @@ const Template = () => {
                             "bg-customBlue hover:bg-customBlueHover"
                         )} >
                             <FaPlus />
-                            <a href="#templates" >Save template</a>
+                            <p >Save template</p>
                         </button>
 
                 </form>
