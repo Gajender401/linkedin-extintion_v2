@@ -167,13 +167,13 @@ const Templates = () => {
   }
 
   return (
-    <main className="overflow-y-scroll relative -mt-[53px] h-full" >
+    <main className=" overflow-y-hidden  relative -mt-[53px] h-full" >
       <button className="bg-white m-auto mt-20 hover:bg-customBlueDisable border border-customBlue text-customBlue py-2 rounded-md items-center flex flex-row gap-1 px-14 " >
         <FaPlus />
         <a href="#template" >Create template</a>
       </button>
 
-      <div className=" p-5 mt-5" >
+      <div className=" overflow-y-scroll h-96 p-5 mt-5" >
         <h2 className="text-[#081230]" >Tap on the prompt to generate message</h2>
 
         <div className="space-y-2 mt-3" >
@@ -201,7 +201,7 @@ const Templates = () => {
         style={{
           boxShadow: "0px -4px 34.1px 0px rgba(0, 0, 0, 0.12)"
         }}
-        className="absolute flex justify-between items-center w-full m-auto bottom-0 h-20" >
+        className="absolute flex bg-white justify-between items-center w-full m-auto bottom-0 h-20" >
         <button
           onClick={() => sendMessage()}
           className={cn(
