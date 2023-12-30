@@ -24,6 +24,8 @@ import { cn } from '../@/lib/utils';
 import axios from 'axios';
 import { useUserAuth } from '../context/context';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { Loader2 } from 'lucide-react';
 
 
 const FormSchema = z.object({
@@ -38,6 +40,7 @@ const FormSchema = z.object({
 const Template = () => {
     const { access } = useUserAuth()
     const [userName, setUserName] = useState('');
+    const [loading, setLoading] = useState<boolean>(false);
 
 
 
@@ -77,7 +80,7 @@ const Template = () => {
 
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
-
+        setLoading(true)
         let dataNew = JSON.stringify({
             "message": `create message template ${data.prompt}`,
             "words": data.words,
@@ -100,8 +103,13 @@ const Template = () => {
 
         axios.request(config)
             .then((response) => {
+                setLoading(false)
+                if (response.status === 201 || response.status === 200) {
+                    toast.success('Template has been created.')
+                } else {
+                    toast.error('An error has been occured.')
+                }
                 window.location.href = `#templates`
-                console.log(JSON.stringify(response.data));
             })
     }
 
@@ -187,8 +195,14 @@ const Template = () => {
                     <button className={cn(
                         " m-auto py-2 rounded-md text-white items-center flex flex-row gap-1 px-14 ",
                         "bg-customBlue hover:bg-customBlueHover"
-                    )} >
-                        <FaPlus />
+                    )}
+                        disabled={loading}
+
+                    >
+                        {loading
+                            ? <Loader2 className="animate-spin mr-1" />
+                            : <FaPlus />
+                        }
                         <p >Save template</p>
                     </button>
 
