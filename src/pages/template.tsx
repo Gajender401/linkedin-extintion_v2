@@ -32,7 +32,6 @@ const FormSchema = z.object({
     prompt: z.string().min(1, 'promt is required'),
     words: z.string().min(1, 'words is required'),
     style: z.string().min(1, 'style is required'),
-    title: z.string().min(1, 'title is required'),
 });
 
 const Template = () => {
@@ -42,7 +41,6 @@ const Template = () => {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            title: '', 
             name: '', 
             prompt: '',
             words: '',
@@ -58,7 +56,6 @@ const Template = () => {
               "words": data.words,
               "tone": data.style,
               "recipient_name": data.name,
-              "template_name": data.title
             });
         
             let config = {
@@ -87,19 +84,6 @@ const Template = () => {
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="w-full text-[#081230] font-normal space-y-4"
                 >
-                                        <FormField
-                        control={form.control}
-                        name="title"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Title of template</FormLabel>
-                                <FormControl>
-                                    <Input className=" text-[#00000099] focus-visible:ring-0" placeholder="Enter the title of the template " {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
                     <FormField
                         control={form.control}
                         name="name"
