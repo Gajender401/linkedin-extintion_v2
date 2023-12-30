@@ -23,10 +23,11 @@ import { FaPlus } from 'react-icons/fa6';
 import { cn } from '../@/lib/utils';
 import axios from 'axios';
 import { useUserAuth } from '../context/context';
+import { useEffect, useState } from 'react';
 
 
 const FormSchema = z.object({
-    name: z.string().min(1,{
+    name: z.string().min(1, {
         message: 'name is required.',
     }),
     prompt: z.string().min(1, 'promt is required'),
@@ -35,13 +36,39 @@ const FormSchema = z.object({
 });
 
 const Template = () => {
-    const {access} = useUserAuth()
-    
+    const { access } = useUserAuth()
+    const [userName, setUserName] = useState('');
+
+
+
+    // Content script to be injected into the LinkedIn page
+    const extractUsername = () => {
+        const h1Tag = document.querySelector('h1');
+        return h1Tag ? h1Tag.innerText : '';
+    };
+
+    useEffect(() => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const currentTab = tabs[0];
+            chrome.scripting.executeScript(
+                {
+                    target: { tabId: currentTab.id },
+                    function: extractUsername,
+                },
+                (result) => {
+                    const extractedUserName = result[0].result;
+                    setUserName(extractedUserName);
+                }
+            );
+        });
+
+
+    }, []);
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            name: '', 
+            name: '',
             prompt: '',
             words: '',
             style: '',
@@ -51,30 +78,31 @@ const Template = () => {
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
 
-            let dataNew = JSON.stringify({
-              "message": `create message template ${data.prompt}`,
-              "words": data.words,
-              "tone": data.style,
-              "recipient_name": data.name,
-            });
-        
-            let config = {
-              method: 'post',
-              maxBodyLength: Infinity,
-              url: 'https://bot.kaliper.in/api/kaliper-linked-lists/',
-              headers: {
+        let dataNew = JSON.stringify({
+            "message": `create message template ${data.prompt}`,
+            "words": data.words,
+            "tone": data.style,
+            "recipient_name": userName,
+            "template_name": data.name
+        });
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://bot.kaliper.in/api/kaliper-linked-lists/',
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${access}`,
                 'Cookie': 'sonu_session=osi35ll46ie4ow2jtttewanamin8s5k6'
-              },
-              data: dataNew
-            };
-        
-            axios.request(config)
-              .then((response) => {
+            },
+            data: dataNew
+        };
+
+        axios.request(config)
+            .then((response) => {
                 window.location.href = `#templates`
                 console.log(JSON.stringify(response.data));
-              })
+            })
     }
 
     return (
@@ -156,13 +184,13 @@ const Template = () => {
                         )}
                     />
 
-                        <button className={cn(
-                            " m-auto py-2 rounded-md text-white items-center flex flex-row gap-1 px-14 ",
-                            "bg-customBlue hover:bg-customBlueHover"
-                        )} >
-                            <FaPlus />
-                            <p >Save template</p>
-                        </button>
+                    <button className={cn(
+                        " m-auto py-2 rounded-md text-white items-center flex flex-row gap-1 px-14 ",
+                        "bg-customBlue hover:bg-customBlueHover"
+                    )} >
+                        <FaPlus />
+                        <p >Save template</p>
+                    </button>
 
                 </form>
             </Form>
