@@ -25,11 +25,17 @@
   ],
   "content_scripts": [
     {
-      "matches": ["https://web-page-navy.vercel.app/*"],
+      "matches": ["*://www.linkedin.com/*"],
       "js": ["contentScript.js"]
     }
   ],
   "externally_connectable": {
     "matches": ["*://web-page-navy.vercel.app/*"]
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["overlay.html"],
+      "matches": ["*://www.linkedin.com/*"]
+    }
+  ]
 }

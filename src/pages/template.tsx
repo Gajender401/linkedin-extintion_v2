@@ -83,7 +83,7 @@ const Template = () => {
         setLoading(true)
         let dataNew = JSON.stringify({
             "message": `create message template ${data.prompt}`,
-            "words": data.words,
+            "words": parseInt(data.words),
             "tone": data.style,
             "recipient_name": userName,
             "template_name": data.name

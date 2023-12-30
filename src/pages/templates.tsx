@@ -44,11 +44,11 @@ const Templates = () => {
   }
 
 
-    // Content script to be injected into the LinkedIn page
-    const extractUsername = () => {
-      const h1Tag = document.querySelector('h1');
-      return h1Tag ? h1Tag.innerText : '';
-    };
+  // Content script to be injected into the LinkedIn page
+  const extractUsername = () => {
+    const h1Tag = document.querySelector('h1');
+    return h1Tag ? h1Tag.innerText : '';
+  };
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -113,7 +113,7 @@ const Templates = () => {
     });
   };
 
-  function setMessage(content:string) {
+  function setMessage(content: string) {
 
     const messageBox = document.querySelector('.msg-form__contenteditable');
 
@@ -167,8 +167,8 @@ const Templates = () => {
   }
 
   return (
-    <main>
-      <button className="bg-white m-auto mt-5 hover:bg-customBlueDisable border border-customBlue text-customBlue py-2 rounded-md items-center flex flex-row gap-1 px-14 " >
+    <main className="overflow-y-scroll relative -mt-[53px] h-full" >
+      <button className="bg-white m-auto mt-20 hover:bg-customBlueDisable border border-customBlue text-customBlue py-2 rounded-md items-center flex flex-row gap-1 px-14 " >
         <FaPlus />
         <a href="#template" >Create template</a>
       </button>
@@ -179,7 +179,7 @@ const Templates = () => {
         <div className="space-y-2 mt-3" >
           {templates.map(t =>
             <div
-              onClick={() => {setSelected(t.id); setContent(t.content)}}
+              onClick={() => { setSelected(t.id); setContent(t.content) }}
               style={
                 selected == t.id
                   ? { boxShadow: '0px 0px 12px 0px #CDE6FF', border: '1 px solid #0A66C2', background: '#CDE6FF', color: '#0A66C2' }
@@ -196,21 +196,22 @@ const Templates = () => {
 
 
       </div>
-        <div
+
+      <div
         style={{
           boxShadow: "0px -4px 34.1px 0px rgba(0, 0, 0, 0.12)"
         }}
-         className="absolute flex justify-between items-center w-full m-auto bottom-0 h-20" >
-          <button
-          onClick={()=>sendMessage()}
+        className="absolute flex justify-between items-center w-full m-auto bottom-0 h-20" >
+        <button
+          onClick={() => sendMessage()}
           className={cn(
             " m-auto py-2 rounded-md text-white items-center flex flex-row gap-1 px-14 ",
-            selected.length===0?"bg-customBlueDisable":"bg-customBlue hover:bg-customBlueHover"
+            selected.length === 0 ? "bg-customBlueDisable" : "bg-customBlue hover:bg-customBlueHover"
           )} >
-            <FaPlus />
-            <p >Send Message</p>
-          </button>
-        </div>
+          <FaPlus />
+          <p >Send Message</p>
+        </button>
+      </div>
     </main>
   )
 }
