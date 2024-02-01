@@ -34,7 +34,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["overlay.html"],
+      "resources": ["index.html","script.js","style.css"],
       "matches": ["*://www.linkedin.com/*"]
     }
   ]

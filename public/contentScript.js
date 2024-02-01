@@ -1,29 +1,36 @@
 
 if (window.location.hostname === 'www.linkedin.com') {
-  // Query the body element
   const bodyElement = document.body;
 
-  // Check if the body element exists before adding the overlay
   if (bodyElement) {
 
-    fetch(chrome.runtime.getURL('overlay.html'))
+    fetch(chrome.runtime.getURL('index.html'))
     .then(response => response.text())
     .then(html => {
-      // Create a temporary container element
+
       const tempContainer = document.createElement('div');
       tempContainer.innerHTML = html;
 
-      console.log(html);
-
-      tempContainer.style.position = 'absolute';
-      tempContainer.style.top = '0';
-      tempContainer.style.left = '0';
-      tempContainer.style.width = '500px';
+      tempContainer.style.position = 'fixed';
+      tempContainer.style.bottom = '20px';
+      tempContainer.style.right = '20px';
+      tempContainer.style.width = '400px';
       tempContainer.style.height = '500px';
+      tempContainer.style.backgroundColor = '#fff';
       tempContainer.style.zIndex = '999';
-      tempContainer.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
 
-      // Append the tempContainer to the body
+      const scriptElement = document.createElement('script');
+      scriptElement.type = 'module';
+      scriptElement.src = chrome.runtime.getURL('script.js');
+      document.head.appendChild(scriptElement);
+
+
+      const linkElement = document.createElement('link');
+      linkElement.rel = 'stylesheet';
+      linkElement.href = chrome.runtime.getURL('style.css');
+
+      document.head.appendChild(linkElement);
+
       bodyElement.appendChild(tempContainer);
     })
     .catch(error => {

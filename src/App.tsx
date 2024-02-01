@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Main from './pages/main';
 import Navbar from './components/navbar';
 import Template from './pages/template';
@@ -10,17 +10,18 @@ const Popup = () => {
 
   const { access } = useUserAuth()
 
+
   return (
     <div className='h-screen w-full'>
       <Navbar />
       <div className=' h-screen w-full' >
-        <HashRouter>
+        <MemoryRouter>
           <Routes>
             <Route path="/" element={ access ? <Templates /> : <Main /> } />
             <Route path="/template" element={<Template />} />
             <Route path="/templates" element={<Templates />} />
           </Routes>
-        </HashRouter>
+        </MemoryRouter>
       </div>
     </div>
   );

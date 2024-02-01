@@ -43,44 +43,18 @@ const Templates = () => {
       })
   }
 
-
-  // Content script to be injected into the LinkedIn page
-  const extractUsername = () => {
-    const h1Tag = document.querySelector('h1');
-    return h1Tag ? h1Tag.innerText : '';
-  };
-
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const currentTab = tabs[0];
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: currentTab.id },
-          function: extractUsername,
-        },
-        (result) => {
-          const extractedUserName = result[0].result;
-          setUserName(extractedUserName);
-        }
-      );
-    });
 
+    const extractUsername = () => {
+      const h1Tag = document.querySelector('h1');
+      setUserName(h1Tag ? h1Tag.innerText : '')
+    };
+
+    return ()=> extractUsername()
 
   }, []);
 
 
-
-  const handleClickMessageButton = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const currentTab = tabs[0];
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: currentTab.id },
-          function: clickMessageButton,
-        }
-      );
-    });
-  };
 
   const clickMessageButton = () => {
     const userNameElement = document.querySelector('h1');
@@ -100,20 +74,8 @@ const Templates = () => {
 
   };
 
-  const handleClickSetMessage = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const currentTab = tabs[0];
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: currentTab.id },
-          function: setMessage,
-          args: [content]
-        }
-      );
-    });
-  };
 
-  function setMessage(content: string) {
+  function setMessage() {
 
     const messageBox = document.querySelector('.msg-form__contenteditable');
 
@@ -158,11 +120,11 @@ const Templates = () => {
   }
 
   async function sendMessage() {
-    handleClickMessageButton()
+    clickMessageButton()
     console.log(userName);
 
     setTimeout(() => {
-      handleClickSetMessage()
+      setMessage()
     }, 1000);
   }
 

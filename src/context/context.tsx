@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { Cookies } from 'react-cookie';
 
 interface UserAuthContextProps {
-  userName: string;
   user: string;
   access: string;
 }
@@ -10,40 +10,16 @@ interface UserAuthContextProps {
 const userAuthContext = createContext<UserAuthContextProps | undefined>(undefined);
 
 export function UserAuthContextProvider({ children }: { children: React.ReactNode }) {
-  const [userName, setUserName] = useState('');
   const [user, setUser] = useState('');
   const [access, setAccess] = useState('');
 
-  useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const currentTab = tabs[0];
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: currentTab.id },
-          function: extractUsername,
-        },
-        (result) => {
-          const extractedUserName = result[0].result;
-          setUserName(extractedUserName);
-        }
-      );
-    });
-  }, []);
 
   useEffect(() => {
-    /*@ts-ignore */
-    chrome.cookies.get({ url: 'https://extintion-web.vercel.app/', name: 'access' },function (cookie) {
-        getUser(cookie.value);
-        setAccess(cookie.value);
-      }
-    );
+    const cookies = new Cookies()
+    const access = cookies.get('access')
+        getUser(access);
+        setAccess(access);
   }, []);
-
-  // Content script to be injected into the LinkedIn page
-  const extractUsername = () => {
-    const h1Tag = document.querySelector('h1');
-    return h1Tag ? h1Tag.innerText : '';
-  };
 
   async function getUser(tokken: string) {
     let config = {
@@ -66,7 +42,6 @@ export function UserAuthContextProvider({ children }: { children: React.ReactNod
   return (
     <userAuthContext.Provider
       value={{
-        userName,
         user,
         access,
       }}

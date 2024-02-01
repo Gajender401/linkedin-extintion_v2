@@ -43,30 +43,17 @@ const Template = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
 
-
-    // Content script to be injected into the LinkedIn page
-    const extractUsername = () => {
-        const h1Tag = document.querySelector('h1');
-        return h1Tag ? h1Tag.innerText : '';
-    };
-
     useEffect(() => {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            const currentTab = tabs[0];
-            chrome.scripting.executeScript(
-                {
-                    target: { tabId: currentTab.id },
-                    function: extractUsername,
-                },
-                (result) => {
-                    const extractedUserName = result[0].result;
-                    setUserName(extractedUserName);
-                }
-            );
-        });
 
-
-    }, []);
+        const extractUsername = () => {
+          const h1Tag = document.querySelector('h1');
+          setUserName(h1Tag ? h1Tag.innerText : '')
+        };
+    
+        return ()=> extractUsername()
+    
+      }, []);
+    
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
