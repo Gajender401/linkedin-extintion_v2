@@ -34,7 +34,7 @@
  
     --radius: 0.5rem;
     height: 500px;
-    width: 350px;
+    width: 400px;
   }
  
   .dark {
@@ -67,7 +67,12 @@
     --ring: 212.7 26.8% 83.9%;
   }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
  
+:root{
+  font-family: 'Poppins', sans-serif;
+}
 @layer base {
   * {
     @apply border-border;
@@ -75,4 +80,43 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+.gradient-box{
+  position: relative;
+}
+
+.gradient-box:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -5px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, hsla(184, 70%, 54%, 1) 0%, hsla(221, 73%, 63%, 1) 100%);
+}
+
+.b-login>p>a{
+  color: #0A66C2 !important; 
+  text-decoration: none !important;
+}
+
+
+.main{
+  position: fixed;
+  width: 400px;
+  height: 500px;
+  background-color: white;
+  z-index: 999;
+}
+
+.box{
+  position: fixed;
+  background-color: white;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

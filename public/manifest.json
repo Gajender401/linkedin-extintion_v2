@@ -20,8 +20,8 @@
     "16": "vite.svg"
   },
   "host_permissions": [
-    "http://*/*",
-    "https://*/*"
+    "https://www.linkedin.com/*",
+    "https://blueparrotai.com/*"
   ],
   "content_scripts": [
     {
@@ -30,11 +30,11 @@
     }
   ],
   "externally_connectable": {
-    "matches": ["*://web-page-navy.vercel.app/*"]
+    "matches": ["*://blueparrotai.com/*"]
   },
   "web_accessible_resources": [
     {
-      "resources": ["index.html","script.js","style.css"],
+      "resources": ["index.html","index.js","index.css","logo.png"],
       "matches": ["*://www.linkedin.com/*"]
     }
   ]

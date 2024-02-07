@@ -4,10 +4,9 @@ import './index.css'
 import { UserAuthContextProvider } from './context/context.js';
 import { ToastProvider } from './context/toaster-provider.tsx';
 
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <UserAuthContextProvider>
-    <App />
+      <App />
     <ToastProvider />
   </UserAuthContextProvider>,
 )

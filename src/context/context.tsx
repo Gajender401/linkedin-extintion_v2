@@ -1,49 +1,44 @@
-import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { Cookies } from 'react-cookie';
 
 interface UserAuthContextProps {
-  user: string;
+  userName: string;
   access: string;
+  hash:string;
+  state:boolean;
+  setHash: React.Dispatch<React.SetStateAction<string>>;
+  setUserName: React.Dispatch<React.SetStateAction<string>>
+  setState: React.Dispatch<React.SetStateAction<boolean>>
+
 }
 
 const userAuthContext = createContext<UserAuthContextProps | undefined>(undefined);
 
 export function UserAuthContextProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState('');
+  const [userName, setUserName] = useState('sssss');
   const [access, setAccess] = useState('');
-
+  const [hash, setHash] = useState('')
+  const [state, setState] = useState(true)
 
   useEffect(() => {
-    const cookies = new Cookies()
-    const access = cookies.get('access')
-        getUser(access);
-        setAccess(access);
-  }, []);
+    setTimeout(() => {
+      const tokken = document.getElementById('tokken');
+      if (tokken?.textContent) {
+        setAccess(tokken?.textContent);
+      }
+    }, 3000);
+  }, [])
 
-  async function getUser(tokken: string) {
-    let config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: 'https://bot.kaliper.in/api/auth/me/',
-      headers: {
-        Authorization: `Bearer ${tokken}`,
-      },
-    };
-
-    try {
-      const response = await axios.request(config);
-      setUser(response.data.email);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <userAuthContext.Provider
       value={{
-        user,
+        userName,
         access,
+        hash,
+        state,
+        setState,
+        setHash,
+        setUserName
       }}
     >
       {children}
