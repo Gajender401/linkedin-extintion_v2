@@ -21,24 +21,6 @@ if (window.location.hostname === 'www.linkedin.com') {
         linkElement.rel = 'stylesheet';
         linkElement.href = chrome.runtime.getURL('index.css');
 
-        function addLogoToElement() {
-          // Find the element with class name "logo-img"
-          const logoElement = document.querySelector('.logo-img');
-
-          if (logoElement) {
-            // Set the src attribute of the found element
-            logoElement.src = chrome.runtime.getURL('logo.png');
-          } else {
-            console.warn('Element with class name "logo-img" not found. Retrying in 500ms.');
-
-            // Retry after a delay
-            setTimeout(addLogoToElement, 50);
-          }
-        }
-
-        // Call the function initially
-        addLogoToElement();
-
         document.head.appendChild(linkElement);
 
         bodyElement.appendChild(tempContainer);

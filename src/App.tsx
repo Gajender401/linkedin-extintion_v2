@@ -12,9 +12,8 @@ const Popup = () => {
 
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x: 20, y: 20 });
-  const divRef = useRef<HTMLDivElement>(null);
   const initialMousePosition = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-
+  const divRef = useRef<HTMLDivElement>(null);
 
   const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);

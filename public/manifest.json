@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "LinkedIn Username Extractor",
+  "name": "blueparrotai",
   "version": "1.0.0",
   "description": "Extract and display LinkedIn username",
   "action": {
@@ -16,9 +16,6 @@
     "storage",
     "cookies"
   ],
-  "icons": {
-    "16": "vite.svg"
-  },
   "host_permissions": [
     "https://www.linkedin.com/*",
     "https://blueparrotai.com/*"
@@ -34,7 +31,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["index.html","index.js","index.css","logo.png"],
+      "resources": ["index.html","index.js","index.css"],
       "matches": ["*://www.linkedin.com/*"]
     }
   ]
