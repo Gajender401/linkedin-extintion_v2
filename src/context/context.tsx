@@ -17,7 +17,7 @@ export function UserAuthContextProvider({ children }: { children: React.ReactNod
   const [userName, setUserName] = useState('sssss');
   const [access, setAccess] = useState('');
   const [hash, setHash] = useState('')
-  const [state, setState] = useState(true)
+  const [state, setState] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
