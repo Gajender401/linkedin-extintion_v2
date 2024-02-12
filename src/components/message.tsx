@@ -1,17 +1,29 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const Message: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+
+  useEffect(() => {
+    const left = document.getElementById('leftBtn')
+    const right = document.getElementById('rightBtn')
+
+
+    left?.addEventListener('click', scrollLeft)
+    right?.addEventListener('click', scrollRight)
+
+
+  }, [])
+
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollLeft += 100; // Adjust the scrolling amount as needed
+      scrollContainerRef.current.scrollLeft += 250;
     }
   };
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollLeft -= 100; // Adjust the scrolling amount as needed
+      scrollContainerRef.current.scrollLeft -= 250;
     }
   };
 
@@ -19,7 +31,6 @@ const Message: React.FC = () => {
     <div className="flex-1 text-xl p-2 flex items-center justify-between">
       <div className="flex gap-1 px-1 items-stretch text-blue-600" style={{ opacity: 1 }}>
         <button
-          disabled
           className="text-gray-500 focus-visible:outline-none"
           id="leftBtn"
           style={{ opacity: 1, transform: 'none' }}
@@ -51,9 +62,6 @@ const Message: React.FC = () => {
           </svg>
         </button>
       </div>
-      <button className=" text-blue-500 hover:border-blue-600 hover:bg-blue-100 focus-visible:ring-blue-400 active:border-blue-700 disabled:border-blue-200 dark:border-blue-400 dark:text-blue-200  dark:hover:bg-blue-300/50 dark:focus-visible:text-blue-300 dark:focus-visible:ring-blue-500 dark:active:bg-blue-300/30 dark:disabled:border-blue-800 gap-1 rounded-full border px-2 py-1 font-semibold ring-0 transition-[background-color,box-shadow] duration-300 focus-visible:outline-none focus-visible:ring">
-        Create
-      </button>
     </div>
   );
 };
