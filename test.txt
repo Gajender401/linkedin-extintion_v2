@@ -1,0 +1,7 @@
+trigger -> event listener ->? type
+
+
+excute ->
+        getelemntbyid()
+            true -> inject
+
