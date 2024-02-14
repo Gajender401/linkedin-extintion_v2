@@ -102,10 +102,10 @@ const Popup = () => {
             cursor: isDragging ? 'grabbing' : 'grab',
           }}
           onMouseDown={handleMouseDown}
-          onClick={() => setState(true)} className='w-[130px] h-[130px] font-extrabold shadow-lg box rounded-full p-[10px]' >
-          blue
+          onClick={() => setState(true)} className='w-[80px] h-[80px] font-extrabold shadow-lg box rounded-full p-2' >
+          b
           <span className='text-[#0A66C2]' >
-            parrot
+            p
           </span>
 
         </div>
